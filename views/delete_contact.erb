@@ -1,0 +1,20 @@
+<!-- <h1>Delete a Contact</h1>
+
+<form action="/contacts/<%= @contact.id %>" method="post">
+  <input type="hidden" name="_method" value="put">
+  <input type="text" name="first_name" value="<%= @contact.first_name %>">
+  <input type="text" name="last_name" value="<%= @contact.last_name %>">
+  <input type="text" name="email" value="<%= @contact.email %>">
+  <input type="text" name="note" value="<%= @contact.note %>">
+  <input type="submit" name="Delete">
+</form> -->
+
+<h1><%= @contact.first_name %> <%= @contact.last_name %></h1>
+<p><strong>Email:</strong> <%= @contact.email %></p>
+<p><strong>Note:</strong></p>
+<p><%= @contact.note %></p>
+
+<form action="/contacts/<%= @contact.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" name="Delete Contact">
+</form>

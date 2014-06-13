@@ -2,6 +2,7 @@
 require_relative 'rolodex'
 require_relative 'contact'
 require 'sinatra'
+require 'data_mapper'
 
 @@rolodex = Rolodex.new
 @@rolodex.add_contact(Contact.new("Johnny", "Bravo", "phnny@bitmakerlabs.com", "Rocksr"))
@@ -53,7 +54,7 @@ post "/contacts/do_search" do
 end
 
 get "/contacts/:id" do
-  @contact = @@rolodex.find(params[:id].to_i)
+  @contact = @@rolodex.find_contact(params[:id].to_i)
   if @contact
     erb :show_contact
   else
@@ -91,8 +92,10 @@ end
 #   end
 # end
 
+
+
 put "/contacts/:id" do
-  @contact = @@rolodex.find(params[:id].to_i)
+  @contact = @@rolodex.find_contact(params[:id].to_i)
   if @contact
     @contact.first_name = params[:first_name]
     @contact.last_name = params[:last_name]
@@ -105,23 +108,28 @@ put "/contacts/:id" do
   end
 end
 
+
+
 # delete "/contacts/:id" do
 #   @contact = @@rolodex.find_contact(params[:id].to_i)
 #   if @contact
-#     @@rolodex.remove_contact(@contact)
+#     @@rolodex.remove_contact(@contact_id)
 #     redirect to("/contacts")
 #   else
 #     raise Sinatra::NotFound
 #   end
 # end
 
-get "/contacts/:id/delete" do
-  @contact = @@rolodex.remove_contact(params[:id].to_i)
-  erb :show_contact
+
+delete "/contacts/:id" do
+  @contact = @@rolodex.find_contact(params[:id].to_i)
+  if @contact
+    @@rolodex.remove_contact(@contact)
+    redirect to("/contacts")
+  else
+    raise Sinatra::NotFound
+  end
 end
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 <h1>Delete a Contact</h1>
 
-<form action="/contacts/<%= @contact.id %>" method="post">
+<form action="/contacts/delete<%= @contact.id %>" method="post">
   <input type="hidden" name="_method" value="delete">
   <input type="submit" name="Delete Contact">
 </form>
